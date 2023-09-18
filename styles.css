@@ -10,3 +10,15 @@ body {
   margin: 16px;
 }
 
+.display {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  background-color: #848587;
+  margin: 20px;
+  padding: 12px;
+}
+
+h1 {
+  margin: 5px;
+}
