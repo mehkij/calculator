@@ -2,9 +2,7 @@
 // let operand2
 // let operation
 
-const display = document.querySelector(".display");
-const displayOutput = document.querySelector("#display-output");
-let currentDisplay = "0";
+// operation fuctions
 
 function add(operand1, operand2) {
   return operand1 + operand2;
@@ -36,6 +34,10 @@ function operate(operator, operand1, operand2) {
 
 // button event handling
 
+const display = document.querySelector(".display");
+const displayOutput = document.querySelector("#display-output");
+let currentDisplay = "0";
+
 function updateDisplay() {
   const buttons = document.querySelectorAll(".buttons button");
 
@@ -47,7 +49,7 @@ function updateDisplay() {
       // check if the clicked button's text content is numeric
       if (/^[0-9]$/.test(buttonValue)) {
         if (currentDisplay === "0" || currentDisplay === "ERROR") {
-          currentDisplay = buttonValue; // replace the "0"
+          currentDisplay = buttonValue; // replace the initial "0"
         } else {
           currentDisplay += buttonValue; // append display with button click
         }
