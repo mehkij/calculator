@@ -4,6 +4,7 @@
 
 const display = document.querySelector(".display");
 const displayOutput = document.querySelector("#display-output");
+let currentDisplay = "0";
 
 function add(operand1, operand2) {
   return operand1 + operand2;
@@ -35,21 +36,31 @@ function operate(operator, operand1, operand2) {
 
 // button event handling
 
-const buttons = document.querySelector(".buttons button");
-
 function updateDisplay() {
-  buttons.addEventListener("click", (e) => {
-    // e.stopPropagation();
-    const clickedButton = e.target;
-    let currentDisplay = 0;
-    
-    if (clickedButton.id === "clear" || clickedButton.id === "multiplication" || clickedButton.id === "division" || clickedButton.id === "subtraction" || clickedButton.id === "addition" || clickedButton.id === "equals") {
+  const buttons = document.querySelectorAll(".buttons button");
+
+  buttons.forEach((button) => {
+    button.addEventListener("click", (e) => {
+      const clickedButton = e.target;
+      const buttonValue = clickedButton.textContent;
+
+      // check if the clicked button's text content is numeric
+      if (/^[0-9]$/.test(buttonValue)) {
+        if (currentDisplay === "0" || currentDisplay === "ERROR") {
+          currentDisplay = buttonValue; // replace the "0"
+        } else {
+          currentDisplay += buttonValue; // append display with button click
+        }
+      }
+
+      if (clickedButton.id === "clear") {
+        currentDisplay = "0";
+      } else if (clickedButton.id === "equals") {
+
+      }
+
       displayOutput.textContent = currentDisplay;
-      display.appendChild(displayOutput);
-    } else {
-      displayOutput.textContent = clickedButton.textContent;
-      display.appendChild(displayOutput);
-    }
+    });
   });
 }
 
