@@ -67,3 +67,26 @@ function updateDisplay() {
 }
 
 updateDisplay();
+
+// CURRENT OBJECTIVES:
+
+// add functionality to the calculator
+  // store the final value of the display after clicking an operator (addition, subtraction, etc.)
+  // store the operator
+  // update the display to make it display the second operand after you begin clicking buttons inputting the operator
+  // store the 2nd operand for evaluation when the "=" button is pressed
+  // pass the stored operands and the stored operator into the operate() function
+  // update the display with the solution to the equation
+  // NOTE: MAKE SURE THAT YOU CAN DO MULTIPLE OPERATIONS IN SUCCESSION (ex: 2 + 2 = 4 x 5 = 20 - 10 = 10 ...)
+
+// extra credit:
+
+  // add a functional decimal button that can be used in the operate() function
+    // make sure the button can only be used ONCE with each operand
+      // probably use the "once()" function with event listeners. biggest hurdle is figuring out how to re-enable it once you move onto the second operand (maybe toggle function instead?)
+    // should be as simple as adding a "." button that appends to the display in the same way the numerical buttons do
+  
+  // add a backspace button that allows the user to delete as many numbers as they want in the display if they make a mistake
+
+  // add keyboard support
+    // the "/" key (and other similar keys) might cause some trouble, read this MDN documentation: (https://developer.mozilla.org/en-US/docs/Web/API/Event/preventDefault)
