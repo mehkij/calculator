@@ -1,6 +1,8 @@
+const display = document.querySelector("#display-output");
+const buttons = document.querySelectorAll("button");
 let operand1;
 let operand2;
-let operation;
+let operator;
 
 // operation fuctions
 
@@ -34,47 +36,36 @@ function operate(operator, operand1, operand2) {
 
 // button event handling
 
-const display = document.querySelector(".display");
-const displayOutput = document.querySelector("#display-output");
-let currentDisplay = "0";
+let calculation = [];
+let append;
 
-function updateDisplay() {
-  const buttons = document.querySelectorAll(".buttons button");
+buttons.forEach(button => button.addEventListener("click", () => calculate(button)));
 
-  buttons.forEach((button) => {
-    button.addEventListener("click", (e) => {
-      const clickedButton = e.target;
-      const buttonValue = clickedButton.textContent;
+function calculate(button) {
+  const value = button.textContent;
+  if (value === "CLEAR") {
+    calculation = [];
+    display.textContent = "0";
+  } else if (value === "=") {
+    operand2 = append;
+    calculation = []
+    console.log(operand2)
+    operate(operator, operand1, operand2);
+  } else {
+    calculation.push(value);
+    let append = calculation.join("")
+    display.textContent = append;
+    if (value === "+" || value === "-" || value === "x" || value === "/") {
+      operand1 = append;
+      operator = value.textContent;
+      calculation = [];
+      console.log(operand1)
+      console.log(operator)
+    }
+  }
 
-      // check if the clicked button's text content is numeric
-      if (/^[0-9]$/.test(buttonValue)) {
-        if (currentDisplay === "0" || currentDisplay === "ERROR") {
-          currentDisplay = buttonValue; // replace the initial "0"
-        } else {
-          currentDisplay += buttonValue; // append display with button click
-        }
-      }
-
-      if (clickedButton.id === "clear") {
-        currentDisplay = "0";
-      } 
-      
-      const addButton = clickedButton.id === "addition";
-      const subtractButton = clickedButton.id === "subtraction";
-      const multiplyButton = clickedButton.id === "multiplication";
-      const divideButton = clickedButton.id === "division";
-
-      if (addButton || subtractButton || multiplyButton || divideButton) {
-        operand1 = currentDisplay;
-        operation = clickedButton;
-      }
-
-      displayOutput.textContent = currentDisplay;
-    });
-  });
+  
 }
-
-updateDisplay();
 
 // CURRENT OBJECTIVES:
 
