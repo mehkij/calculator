@@ -1,6 +1,8 @@
-// let operand1
-// let operand2
-// let operation
+const display = document.querySelector("#display-output");
+const buttons = document.querySelectorAll("button");
+let operand1 = "";
+let operand2 = "";
+let operator = null;
 
 // operation fuctions
 
@@ -32,41 +34,69 @@ function operate(operator, operand1, operand2) {
   }
 }
 
+// "operate()" using switch
+
+// switch (operator) {
+//   case "+":
+//     return add(operand1, operand2);
+//   case "-":
+//     return subtract(operand1, operand2);
+//   case "*":
+//     return multiply(operand1, operand2);
+//   case "/":
+//     return divide(operand1, operand2);
+// }
+
 // button event handling
 
-const display = document.querySelector(".display");
-const displayOutput = document.querySelector("#display-output");
-let currentDisplay = "0";
+let calculation = [];
+let append;
 
-function updateDisplay() {
-  const buttons = document.querySelectorAll(".buttons button");
+buttons.forEach(button => button.addEventListener("click", () => calculate(button)));
 
-  buttons.forEach((button) => {
-    button.addEventListener("click", (e) => {
-      const clickedButton = e.target;
-      const buttonValue = clickedButton.textContent;
-
-      // check if the clicked button's text content is numeric
-      if (/^[0-9]$/.test(buttonValue)) {
-        if (currentDisplay === "0" || currentDisplay === "ERROR") {
-          currentDisplay = buttonValue; // replace the initial "0"
-        } else {
-          currentDisplay += buttonValue; // append display with button click
-        }
+function calculate(button) {
+  const value = button.textContent;
+  if (value === "CLEAR") {
+    calculation = [];
+    display.textContent = "0";
+  } else if (value === "=") {
+    operand2 = parseFloat(append); // convert the string to a number
+    calculation = [];
+    let currentOperand = operate(operator, operand1, operand2);
+    display.textContent = currentOperand;
+    operand1 = currentOperand;
+    let currentOperator = []
+    operator = currentOperator;
+  } else {
+    if (calculation.length === 0 && (value === "+" || value === "-" || value === "*" || value === "/")) {
+      // if the first button pressed after "=" is an operator, do nothing
+      return;
+    }
+    calculation.push(value);
+    if (value === "+" || value === "-" || value === "*" || value === "/") {
+      if (calculation.length === 1) {
+        // handle the case where an operator is entered as the first input
+        operator = value;
+        operand1 = 0;
+      } else {
+        operand1 = parseFloat(calculation.join(""));
+        operator = value;
+        calculation = [];
       }
-
-      if (clickedButton.id === "clear") {
-        currentDisplay = "0";
-      } else if (clickedButton.id === "equals") {
-
-      }
-
-      displayOutput.textContent = currentDisplay;
-    });
-  });
+    } else {
+      // update the display only when a non-operator button is pressed
+      append = calculation.join("");
+      display.textContent = append;
+    }
+  }
 }
 
-updateDisplay();
+
+// CURRENT ISSUES: 
+  // after doing the original equation, trying to do another equation with the previous solution causes the enter button the display
+  // trying to do consecutive equations only evaluates the last part of the equation (ex.: 10 * 2 + 3 will equal 5 because it is only calculating 2 + 3)
+
+
 
 // CURRENT OBJECTIVES:
 
